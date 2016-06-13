@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="https://polygit.org/components/polymer/polymer.html">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <dom-module id="five-star">
+        <style>
+        i {
+            cursor: pointer;
+            color: orange;
+        }
+        </style>
+        <template>
+            <i id="1" onmouseover="starHighlighter(1)" onmouseout="setOrange()" on-tap="setRating" class="material-icons">{{starCalculator(0, rating)}}</i>
+            <i id="2" onmouseover="starHighlighter(2)" onmouseout="setOrange()" on-tap="setRating" class="material-icons">{{starCalculator(1, rating)}}</i>
+            <i id="3" onmouseover="starHighlighter(3)" onmouseout="setOrange()" on-tap="setRating" class="material-icons">{{starCalculator(2, rating)}}</i>
+            <i id="4" onmouseover="starHighlighter(4)" onmouseout="setOrange()" on-tap="setRating" class="material-icons">{{starCalculator(3, rating)}}</i>
+            <i id="5" onmouseover="starHighlighter(5)" onmouseout="setOrange()" on-tap="setRating" class="material-icons">{{starCalculator(4, rating)}}</i>
+        </template>
+        <script>
+        Polymer({
+            is: 'five-star',
+            properties: {
+                rating: {
+                 type: Number,
+                 reflectToAttribute: true,
+                 notify: true
+                }
+            },
+            starCalculator: function(num, rating) {
+                if (this.rating - num >= 1)
+                    return "star";
+                else if ((this.rating - num) > 0.2 && (this.rating - num) < .8)
+                    return "star_half";
+                else
+                    return "star_border";
+            },
+            setRating : function(e, detail){
+             this.rating = e.srcElement.id;
+            }
+            
+        });
+
+        var starHighlighter = function(id) {
+            for (i = 1; i <= id; i++) {
+                document.getElementById(i).style.color = "red";
+            }
+        }
+
+        var setOrange = function() {
+            for (i = 1; i <= 5; i++) {
+                document.getElementById(i).style.color = "orange";
+            }
+        }
+
+        </script>
+    </dom-module>
+</head>
+
+<body>
+    <five-star rating="3.6"></five-star>
+</body>
+
+</html>
